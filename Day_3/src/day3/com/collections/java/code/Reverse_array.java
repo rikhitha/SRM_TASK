@@ -1,4 +1,7 @@
 package day3.com.collections.java.code;
+
+import java.io.Serializable;
+
 class array
 {
 	int[] array1;
@@ -26,7 +29,7 @@ class array
 	}
 }
 
-public class Reverse_array {
+public class Reverse_array implements Serializable{
 
 	public static void main(String[] args) 
 	{
