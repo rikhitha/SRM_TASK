@@ -1,67 +1,49 @@
 package day5.files.java.code.com;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-class write
+
+public class Read_file
 {
-	public void writeToFile(List<String> validate)
-	{
-		try{  
-            FileOutputStream fileOut = new FileOutputStream("C:/Users/HP/Desktop/SRMWORK/val.txt");  
-			ObjectOutputStream oos = new ObjectOutputStream (fileOut);  
-            oos.writeObject (validate);  
-            System.out.println("Records stored in val.txt");
+    public static void main(String[] args) throws Exception
+    {
+        // Open input file for reading
+        
+        Path inFile = Paths.get("C:/Users/HP/Desktop/SRMWORK/day_5.txt");
+        if (!Files.exists(inFile, LinkOption.NOFOLLOW_LINKS))
+        {
+            throw new FileNotFoundException(inFile.toString());
         }
-		catch(Exception e)
-		{  
-            System.err.println(e.getMessage());  
-        }  
-	}
-	public void writeerrorToFile(List<String> notvalid)
-	{
-		try{  
-            FileOutputStream fileOut = new FileOutputStream("C:/Users/HP/Desktop/SRMWORK/notval.txt");  
-			ObjectOutputStream oos = new ObjectOutputStream (fileOut);  
-            oos.writeObject (notvalid);  
-            System.out.println("Records stored in notval.txt");
+        Scanner scanner =  new Scanner(inFile, "UTF-8");
+
+        // Open output file for writing
+        
+        PrintWriter writer1 = new PrintWriter("C:/Users/HP/Desktop/SRMWORK/valid.txt", "UTF-8");
+        PrintWriter writer2 = new PrintWriter("C:/Users/HP/Desktop/SRMWORK/error_records.txt", "UTF-8");
+
+        
+        ArrayList<String> list = new ArrayList<String>();
+        
+        while (scanner.hasNextLine())
+        {
+            list.add(scanner.next());
         }
-		catch(Exception e)
-		{  
-            System.err.println(e.getMessage());  
-        }  
-	}
-}
-
-public class Read_file {
-
-	public static void main(String[] args) throws FileNotFoundException 
-	{
-		Scanner s = new Scanner(new File("C:/Users/HP/Desktop/SRMWORK/day_5.txt"));
-		ArrayList<String> list = new ArrayList<String>();
-		while (s.hasNext()){
-		    list.add(s.next());
-		}
-		s.close();
-		System.out.println(list);
-		List<String> validate=list.stream().filter(v->v.length()>3).collect(Collectors.toList());
+        scanner.close();
+        List<String> validate=list.stream().filter(v->v.length()>3).collect(Collectors.toList());
 		System.out.println(validate);
 		List<String> errorrecord=list.stream().filter(p->p.length()<=3).collect(Collectors.toList());
 		System.out.println(errorrecord);
-		write ob=new write();
-		ob.writeToFile(validate);
-		ob.writeerrorToFile(errorrecord);
-		
-
-	}
-
-	
-	
-
+		writer1.println(validate);
+		writer2.println(errorrecord);
+		writer1.close();
+		writer2.close();
+    }
 }
