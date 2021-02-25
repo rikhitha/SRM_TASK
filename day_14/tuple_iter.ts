@@ -1,0 +1,20 @@
+let customer = [12101, "Nisham", 24, "nisg45@gmail.com"];  
+console.log(customer);  
+let customers=[];
+customers[0]=13018;
+customers[1]="venkat";
+customers[2]="23";
+customers[3]="venbox@gmail.com";
+console.log("Customer id is:"+customers[0]);
+console.log("Customer name is:"+customers[1]);
+console.log("Customer age is:"+customers[2]);
+console.log("Customer mail-id is:"+customers[3]);
+console.log("length of tuple"+customers.length);
+customers.push(9176558476);
+console.log("added one item to customers"+" "+customers);
+console.log("length of customers after adding one element"+" "+customers.length);
+customers[2]=26;
+console.log("updating age of customer"+" "+customers);
+customers.pop();
+console.log("pop"+" "+customers);
+
